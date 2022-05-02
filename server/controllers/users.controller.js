@@ -1,5 +1,7 @@
-//This file 
+const { validationResult } = require('express-validator');
 
+
+//models 
 const { User } = require('../models/user.model');
 
 
@@ -22,10 +24,28 @@ const getAllUsers = async (req, res) => {
 const createUser = async (req, res) => {
     try {
         
-        const { name, email } = req.body;
+        const { name, email, password } = req.body;
+
+        //Validation
+        const errors = validationResult(req);
+
+        if(!errors.isEmpty()){
+            const messages = errors.array().map( error => {
+                return error.msg
+            });
+
+            const errorMsg = messages.join('. ');
+
+            return res.status(400).json({
+                status: 'error',
+                message: errorMsg,
+            })
+        }
+        
         const newUser = await User.create({
             name: name,
-            email: email
+            email: email,
+            password
         })
 
         res.status(201).json({ newUser })
