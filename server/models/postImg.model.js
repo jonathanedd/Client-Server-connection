@@ -5,34 +5,19 @@ const { DataTypes } = require("sequelize");
 const { db } = require("../utils/database");
 
 // users columns variable in Uppercase User
-const User = db.define("user", {
+const PostImg = db.define("postImg", {
   id: {
-    // id Allows to identify the data type in database (never repeats)
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
     type: DataTypes.INTEGER,
   },
-  name: {
+  postImgUrl: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  email: {
-    type: DataTypes.STRING,
-    unique: true,
-    allowNull: false,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  role: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: "normal",
-  },
-  profileImgUrl: {
-    type: DataTypes.STRING,
+  postId: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   status: {
@@ -41,4 +26,4 @@ const User = db.define("user", {
   },
 });
 
-module.exports = { User };
+module.exports = { PostImg };
